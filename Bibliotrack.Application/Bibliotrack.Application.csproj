@@ -11,8 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\BookCommands\DeleteBook\" />
-    <Folder Include="Commands\BookCommands\UpdateBook\" />
     <Folder Include="Commands\LoanCommands\AddLoan\" />
     <Folder Include="Commands\LoanCommands\DeleteLoan\" />
     <Folder Include="Commands\LoanCommands\UpdateLoan\" />
