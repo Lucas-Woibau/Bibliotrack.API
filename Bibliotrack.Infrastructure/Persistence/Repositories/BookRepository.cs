@@ -32,7 +32,7 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task Update(Book book)
+        public Task Update(int id)
         {
             throw new NotImplementedException();
         }   

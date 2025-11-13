@@ -8,6 +8,6 @@ namespace Bibliotrack.Domain.Repositories
         Task<Book?> GetById(int id);
         Task<int> Add(Book book);
         Task Update(Book book);
-        Task Delete(Book book);
+        Task Delete(int id);
     }
 }
