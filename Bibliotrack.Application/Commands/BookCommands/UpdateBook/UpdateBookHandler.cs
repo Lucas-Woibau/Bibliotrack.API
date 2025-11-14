@@ -4,11 +4,11 @@ using MediatR;
 
 namespace Bibliotrack.Application.Commands.BookCommands.UpdateBook
 {
-    public class UpdateBookHanlder : IRequestHandler<UpdateBookCommand, ResultViewModel>
+    public class UpdateBookHandler : IRequestHandler<UpdateBookCommand, ResultViewModel>
     {
         private readonly IBookRepository _bookRepository;
 
-        public UpdateBookHanlder(IBookRepository bookRepository)
+        public UpdateBookHandler(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }

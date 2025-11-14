@@ -2,23 +2,13 @@
 using Bibliotrack.Domain.Repositories;
 using MediatR;
 
-namespace Bibliotrack.Application.Queries.Loan
+namespace Bibliotrack.Application.Queries.LoanQueries.GetLoanById
 {
-    public class GetLoanByIdQuery : IRequest<ResultViewModel<LoanViewModel>>
-    {
-        public GetLoanByIdQuery(int id)
-        {
-            Id = id;
-        }
-
-        public int Id { get; set; }
-    }
-
-    public class GetLoanByIdHanlder : IRequestHandler<GetLoanByIdQuery, ResultViewModel<LoanViewModel>>
+    public class GetLoanByIdHandler : IRequestHandler<GetLoanByIdQuery, ResultViewModel<LoanViewModel>>
     {
         private readonly ILoanRepository _loanRepository;
 
-        public GetLoanByIdHanlder(ILoanRepository loanRepository)
+        public GetLoanByIdHandler(ILoanRepository loanRepository)
         {
             _loanRepository = loanRepository;
         }

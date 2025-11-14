@@ -6,7 +6,7 @@ namespace Bibliotrack.Domain.Repositories
     {
         Task<List<Loan>> GetAll();
         Task<Loan?> GetById(int id);
-        Task<Loan?> Add(Loan loan);
+        Task<int> Add(Loan loan);
         Task Update(Loan loan);
         Task Delete(int id);
     }

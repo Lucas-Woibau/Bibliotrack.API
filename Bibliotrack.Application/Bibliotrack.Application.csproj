@@ -11,12 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\LoanCommands\AddLoan\" />
-    <Folder Include="Commands\LoanCommands\DeleteLoan\" />
-    <Folder Include="Commands\LoanCommands\UpdateLoan\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MediatR" Version="13.1.0" />
   </ItemGroup>
 
