@@ -1,5 +1,6 @@
 ﻿using Bibliotrack.Domain.Entities;
 using Bibliotrack.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bibliotrack.Infrastructure.Persistence.Repositories
 {
@@ -12,29 +13,48 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public Task<List<Book>> GetAll()
+        public async Task<List<Book>> GetAll()
         {
-            throw new NotImplementedException();
+            var books = await _context.Books
+                .Where(b => !b.IsDeleted)
+                .ToListAsync();
+
+            return books;
         }
 
-        public Task<Book?> GetById(int id)
+        public async Task<Book?> GetById(int id)
         {
-            throw new NotImplementedException();
+            var book = await _context.Books
+                .Where(b => !b.IsDeleted)
+                .SingleOrDefaultAsync(b => b.Id == id);
+
+            return book;
         }
 
-        public Task<int> Add(Book book)
+        public async Task<int> Add(Book book)
         {
-            throw new NotImplementedException();
+            await _context.Books.AddAsync(book);
+            await _context.SaveChangesAsync();
+
+            return book.Id;
         }
 
-        public Task Delete(Book book)
+        public async Task Update(Book book)
         {
-            throw new NotImplementedException();
+            _context.Books.Update(book);
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
-        }   
+            var book = await GetById(id);
+
+            if (book is null)
+                return;
+
+            book.SetAsDeleted();
+            _context.Update(book);
+            await _context.SaveChangesAsync();
+        }
     }
 }

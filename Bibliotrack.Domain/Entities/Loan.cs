@@ -3,13 +3,12 @@
     public class Loan : BaseEntity
     {
         protected Loan() { }
-        public Loan(Book book, string personName, DateTime? expectedReturnBook)
+        public Loan(Book book, string personName, DateTime loanDate, DateTime? expectedReturnBook)
         {
             Book = book;
             PersonName = personName;
             ExpectedReturnBook = expectedReturnBook;
-
-            LoanDate = DateTime.Now;
+            LoanDate = loanDate;
         }
 
         public Book Book { get; private set; }
