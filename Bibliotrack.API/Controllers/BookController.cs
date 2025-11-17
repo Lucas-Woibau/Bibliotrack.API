@@ -1,6 +1,7 @@
 ﻿using Bibliotrack.Application.Commands.BookCommands.AddBook;
 using Bibliotrack.Application.Commands.BookCommands.DeleteBook;
 using Bibliotrack.Application.Commands.BookCommands.UpdateBook;
+using Bibliotrack.Application.Queries.Book.GetAllBooks;
 using Bibliotrack.Application.Queries.Book.GetBooksById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,8 @@ namespace Bibliotrack.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var query = new AddBookCommand();
+            var query = new GetAllBooksQuery();
+
             var result = await _mediator.Send(query);
 
             return Ok(result);
