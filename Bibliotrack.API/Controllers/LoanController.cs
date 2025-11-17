@@ -1,10 +1,6 @@
-﻿using Bibliotrack.Application.Commands.BookCommands.AddBook;
-using Bibliotrack.Application.Commands.BookCommands.DeleteBook;
-using Bibliotrack.Application.Commands.BookCommands.UpdateBook;
-using Bibliotrack.Application.Commands.LoanCommands.AddLoan;
+﻿using Bibliotrack.Application.Commands.LoanCommands.AddLoan;
 using Bibliotrack.Application.Commands.LoanCommands.DeleteLoan;
 using Bibliotrack.Application.Commands.LoanCommands.UpdateLoan;
-using Bibliotrack.Application.Queries.Book.GetBooksById;
 using Bibliotrack.Application.Queries.LoanQueries.GetAllLoans;
 using Bibliotrack.Application.Queries.LoanQueries.GetLoanById;
 using MediatR;

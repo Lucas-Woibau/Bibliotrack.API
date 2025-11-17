@@ -17,9 +17,9 @@ namespace Bibliotrack.Application.Commands.BookCommands.AddBook
         {
             var book = request.ToEntity();
 
-            var id = await _bookRepository.Add(book);
+            await _bookRepository.Add(book);
 
-            return ResultViewModel<int>.Success(id);
+            return ResultViewModel<int>.Success(book.Id);
         }
     }
 }

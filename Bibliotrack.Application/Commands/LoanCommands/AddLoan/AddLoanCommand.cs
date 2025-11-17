@@ -6,12 +6,12 @@ namespace Bibliotrack.Application.Commands.LoanCommands.AddLoan
 {
     public class AddLoanCommand : IRequest<ResultViewModel<int>>
     {
-        public Book Book { get; set; }
+        public int IdBook { get; set; }
         public string PersonName { get; set; }
         public DateTime LoanDate { get; private set; }
         public DateTime? ExpectedReturnBook { get; set; }
 
-        public Loan ToEntity()
-            => new(Book, PersonName,LoanDate, ExpectedReturnBook);
+        public Loan ToEntity(Book book)
+            => new(IdBook, book, PersonName,LoanDate, ExpectedReturnBook);
     }
 }
