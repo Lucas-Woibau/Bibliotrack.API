@@ -9,6 +9,6 @@ namespace Bibliotrack.Application.Commands.LoanCommands.UpdateLoan
         public int IdBook { get; set; }
         public string PersonName { get; set; }
         public DateTime LoanDate { get; set; }
-        public DateTime? ReturnDate { get; set; }
+        public DateTime? ExpectedReturnDate { get; set; }
     }
 }

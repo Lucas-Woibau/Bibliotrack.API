@@ -8,7 +8,7 @@ namespace Bibliotrack.Application.Commands.LoanCommands.AddLoan
     {
         public int IdBook { get; set; }
         public string PersonName { get; set; }
-        public DateTime LoanDate { get; private set; }
+        public DateTime LoanDate { get; set; }
         public DateTime? ExpectedReturnBook { get; set; }
 
         public Loan ToEntity(Book book)
