@@ -1,5 +1,6 @@
 ﻿using Bibliotrack.Application.Commands.LoanCommands.AddLoan;
 using Bibliotrack.Application.Commands.LoanCommands.DeleteLoan;
+using Bibliotrack.Application.Commands.LoanCommands.ReturnLoanBook;
 using Bibliotrack.Application.Commands.LoanCommands.UpdateLoan;
 using Bibliotrack.Application.Queries.LoanQueries.GetAllLoans;
 using Bibliotrack.Application.Queries.LoanQueries.GetLoanById;
@@ -65,6 +66,17 @@ namespace Bibliotrack.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _mediator.Send(new DeleteLoanCommand(id));
+
+            if (!result.IsSuccess)
+                return BadRequest(result.Message);
+
+            return Ok();
+        }
+
+        [HttpPut("{id}/return")]
+        public async Task<IActionResult> ReturnBook(int id)
+        {
+            var result = await _mediator.Send(new ReturnLoanBookCommand(id));
 
             if (!result.IsSuccess)
                 return BadRequest(result.Message);

@@ -9,5 +9,6 @@ namespace Bibliotrack.Domain.Repositories
         Task<int> Add(Loan loan);
         Task Update(Loan loan);
         Task Delete(int id);
+        Task ReturnBook(int id);
     }
 }

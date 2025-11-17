@@ -1,4 +1,5 @@
-﻿using Bibliotrack.Domain.Entities;
+﻿using Bibliotrack.Application.Models;
+using Bibliotrack.Domain.Entities;
 using Bibliotrack.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,6 +54,16 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
                 return;
 
             loan.SetAsDeleted();
+            _context.Update(loan);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ReturnBook(int id)
+        {
+            var loan = await GetById(id);
+            if (loan is null) 
+                return;
+
             _context.Update(loan);
             await _context.SaveChangesAsync();
         }

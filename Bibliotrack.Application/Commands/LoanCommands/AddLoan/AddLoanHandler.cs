@@ -24,7 +24,12 @@ namespace Bibliotrack.Application.Commands.LoanCommands.AddLoan
 
             var loan = request.ToEntity(book);
 
+            if (!book.DecreaseQuantity())
+                return ResultViewModel<int>.Error("There is no quantity available");
+
+            book.UpdateStatusBasedOnQuantity();
             await _loanRepository.Add(loan);
+            await _bookRepository.Update(book);
 
             return ResultViewModel<int>.Success(loan.Id);
         }
