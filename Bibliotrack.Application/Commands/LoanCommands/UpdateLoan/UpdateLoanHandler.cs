@@ -7,10 +7,12 @@ namespace Bibliotrack.Application.Commands.LoanCommands.UpdateLoan
     public class UpdateLoanHandler : IRequestHandler<UpdateLoanCommand, ResultViewModel>
     {
         private readonly ILoanRepository _loanRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public UpdateLoanHandler(ILoanRepository loanRepository)
+        public UpdateLoanHandler(ILoanRepository loanRepository, IBookRepository bookRepository)
         {
             _loanRepository = loanRepository;
+            _bookRepository = bookRepository;
         }
 
         public async Task<ResultViewModel> Handle(UpdateLoanCommand request, CancellationToken cancellationToken)
@@ -20,7 +22,11 @@ namespace Bibliotrack.Application.Commands.LoanCommands.UpdateLoan
             if (loan == null)
                 return ResultViewModel.Error("Loan not found.");
 
-            loan.Update(request.Book,request.PersonName,request.LoanDate,request.ReturnDate);
+            var book = await _bookRepository.GetById(request.IdBook);
+            if (book == null)
+                return ResultViewModel.Error("Book not found.");
+
+            loan.Update(request.IdBook, book, request.PersonName, request.LoanDate, request.ReturnDate);
             await _loanRepository.Update(loan);
 
             return ResultViewModel.Success();
