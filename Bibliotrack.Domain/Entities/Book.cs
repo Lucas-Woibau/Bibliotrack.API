@@ -15,7 +15,7 @@ namespace Bibliotrack.Domain.Entities
             RegistrationDate = registrationDate;
             Catalog = catalog;
 
-            SetAvailable();
+            UpdateStatusBasedOnQuantity();
         }
 
         public string Title { get; private set; }
@@ -26,16 +26,40 @@ namespace Bibliotrack.Domain.Entities
         public string? Catalog { get; private set; }
         public BookStatus Status { get; private set; }
 
-        public bool SetAvailable()
+        public bool VerifyIfHaslQuantity()
         {
-            Status = BookStatus.Available;
+            if (Quantity > 0)
+                return true;
+
+            return false;
+        }
+
+        public void UpdateStatusBasedOnQuantity()
+        {
+            if (VerifyIfHaslQuantity())
+            {
+                Status = BookStatus.Available;
+            }
+            else
+            {
+                Status = BookStatus.Unavailable;
+            }
+        }
+
+        public void IncreaseQuantity()
+        {
+            Quantity++;
+        }
+
+        public bool DecreaseQuantity()
+        {
+            if (Quantity == 0)
+                return false;
+
+            Quantity--;
             return true;
         }
-        public bool SetUnavailable()
-        {
-            Status = BookStatus.Unavailable;
-            return true;
-        }
+
 
         public void Update(string title, string? author, string? description, int quantity, DateTime? registrationDate, string? catalog)
         {
