@@ -13,22 +13,7 @@ namespace Bibliotrack.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Book>(e =>
-            {
-                e.HasKey(e => e.Id);
-
-                e.Property(b => b.Status)
-                    .HasConversion<string>();
-            });
-
-            builder.Entity<Loan>(e =>
-            {
-                e.HasKey(e => e.Id);
-
-                e.HasOne(e => e.Book)
-                    .WithMany()
-                    .HasForeignKey(e => e.IdBook);
-            });
+            builder.ApplyConfigurationsFromAssembly(typeof(BibliotrackDbContext).Assembly);
 
             builder.Entity<User>(e =>
             {
