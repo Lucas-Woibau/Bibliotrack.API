@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Bibliotrack.Application.Commands.UserCommands.LoginUser
 {
-    public class LoginUserCommand : IRequest<ResultViewModel>
+    public class LoginUserCommand : IRequest<ResultViewModel<LoginViewModel>>
     {
         public LoginUserCommand(string email, string password)
         {
@@ -13,12 +13,5 @@ namespace Bibliotrack.Application.Commands.UserCommands.LoginUser
         public string Email { get; set; }
         public string Password { get; set; }
     }
-
-    public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, ResultViewModel>
-    {
-        public Task<ResultViewModel> Handle(LoginUserCommand request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-    }
 }
+
