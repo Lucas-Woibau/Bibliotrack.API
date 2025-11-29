@@ -1,3 +1,4 @@
+
 using Bibliotrack.Application;
 using Bibliotrack.Infrastructure;
 
@@ -24,6 +25,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

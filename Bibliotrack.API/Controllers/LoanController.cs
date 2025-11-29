@@ -5,12 +5,14 @@ using Bibliotrack.Application.Commands.LoanCommands.UpdateLoan;
 using Bibliotrack.Application.Queries.LoanQueries.GetAllLoans;
 using Bibliotrack.Application.Queries.LoanQueries.GetLoanById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bibliotrack.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/loans")]
     [ApiController]
+    [Authorize]
     public class LoanController : ControllerBase
     {
         public IMediator _mediator;
@@ -21,6 +23,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Get()
         {
             var query = new GetAllLoansQuery();

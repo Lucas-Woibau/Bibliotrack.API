@@ -1,9 +1,15 @@
-﻿using Bibliotrack.Domain.Repositories;
+﻿using Bibliotrack.Application.Configurations;
+using Bibliotrack.Application.Services;
+using Bibliotrack.Domain.Repositories;
+using Bibliotrack.Infrastructure.Auth;
 using Bibliotrack.Infrastructure.Persistence;
 using Bibliotrack.Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Bibliotrack.Infrastructure
 {
@@ -14,6 +20,7 @@ namespace Bibliotrack.Infrastructure
         {
             services
                 .AddData(configuration)
+                .AddAuth(configuration)
                 .AddRepositories();
 
             return services;
@@ -34,6 +41,33 @@ namespace Bibliotrack.Infrastructure
             services
                 .AddScoped<ILoanRepository, LoanRepository>()
                 .AddScoped<IBookRepository, BookRepository>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<AuthSettings>(configuration.GetSection("AuthSettings"));
+
+            services.AddScoped<IAuthConfig, AuthConfig>();
+            services.AddScoped<IAuthService, AuthService>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+
+                        ValidIssuer = configuration["Jwt:Issuer"],
+                        ValidAudience = configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                    };
+                });
 
             return services;
         }
