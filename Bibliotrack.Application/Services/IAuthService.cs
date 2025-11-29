@@ -1,4 +1,4 @@
-﻿namespace Bibliotrack.Infrastructure.Auth
+﻿namespace Bibliotrack.Application.Services
 {
     public interface IAuthService
     {
