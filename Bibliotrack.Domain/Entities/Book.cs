@@ -38,11 +38,11 @@ namespace Bibliotrack.Domain.Entities
         {
             if (VerifyIfHaslQuantity())
             {
-                Status = BookStatus.Available;
+                Status = BookStatus.Disponível;
             }
             else
             {
-                Status = BookStatus.Unavailable;
+                Status = BookStatus.Indisponível;
             }
         }
 
