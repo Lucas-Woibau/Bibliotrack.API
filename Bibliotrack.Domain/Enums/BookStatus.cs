@@ -1,8 +1,10 @@
-﻿namespace Bibliotrack.Domain.Enums
+﻿using System.ComponentModel;
+
+namespace Bibliotrack.Domain.Enums
 {
     public enum BookStatus
     {
-        Available, 
-        Unavailable
+        Disponível, 
+        Indisponível
     }
 }
