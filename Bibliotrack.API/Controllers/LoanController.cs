@@ -23,7 +23,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get()
         {
             var query = new GetAllLoansQuery();

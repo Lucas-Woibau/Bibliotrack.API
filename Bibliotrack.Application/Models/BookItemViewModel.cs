@@ -21,7 +21,7 @@ namespace Bibliotrack.Application.Models
         public string? Author { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
-        public DateTime? RegistrationDate { get ; set; }
+        private DateTime? RegistrationDate { get ; set; }
         public string? RegistrationDateShort
             => RegistrationDate?.ToString("dd-MM-yyy");
 
