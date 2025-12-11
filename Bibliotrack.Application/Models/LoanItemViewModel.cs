@@ -13,12 +13,14 @@ namespace Bibliotrack.Application.Models
 
         public string BookTitle { get; private set; }
         public string PersonName { get; private set; }
-        public DateTime LoanDate { get; private set; }
+        private DateTime? LoanDate { get; set; }
+        public string? LoanDateShort
+            => LoanDate?.ToString("dd-MM-yyy");
 
         public static LoanItemViewModel FromEntity(Loan loan)
         {
             var bookTitle = loan.Book?.Title ?? "There is no title.";
             return new(bookTitle, loan.PersonName, loan.LoanDate);
-        }         
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Bibliotrack.API.Controllers
 {
     [Route("api/books")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BookController : ControllerBase
     {
         public IMediator _mediator;
@@ -22,7 +22,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get()
         {
             var query = new GetAllBooksQuery();
@@ -33,6 +33,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetBookByIdQuery(id));
