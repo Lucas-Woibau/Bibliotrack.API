@@ -1,7 +1,9 @@
 
 using Bibliotrack.Application;
 using Bibliotrack.Infrastructure;
+using Bibliotrack.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
@@ -58,6 +60,20 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<BibliotrackDbContext>();
+    try
+    {
+        db.Database.Migrate();
+        Console.WriteLine("Db successfuly updated.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error to update the Db: {ex.Message}");
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {
