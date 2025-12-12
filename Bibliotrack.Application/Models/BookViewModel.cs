@@ -5,7 +5,7 @@ namespace Bibliotrack.Application.Models
 {
     public class BookViewModel
     {
-        public BookViewModel(string title, string? author, string? description, int quantity, DateTime? registrationDate, string? catalog, BookStatus status)
+        public BookViewModel(int id, string title, string? author, string? description, int quantity, DateTime? registrationDate, string? catalog, BookStatus status)
         {
             Title = title;
             Author = author;
@@ -16,6 +16,7 @@ namespace Bibliotrack.Application.Models
             Status = status;
         }
 
+        public int Id { get; set; }
         public string Title { get; set; }
         public string? Author { get; set; }
         public string? Description { get; set; }
@@ -27,6 +28,6 @@ namespace Bibliotrack.Application.Models
         public BookStatus Status { get; set; }
 
         public static BookViewModel FromEntity(Book book)
-            => new(book.Title, book.Author, book.Description, book.Quantity, book.RegistrationDate, book.Catalog, book.Status);
+            => new(book.Id, book.Title, book.Author, book.Description, book.Quantity, book.RegistrationDate, book.Catalog, book.Status);
     }
 }
