@@ -15,9 +15,15 @@ namespace Bibliotrack.Application.Models
 
         public string BookTitle { get; private set; }
         public string PersonName { get; private set; }
-        public DateTime LoanDate { get; private set; }
-        public DateTime? ExpectedReturnBook { get; private set; }
-        public DateTime? ReturnDate { get; private set; }
+        private DateTime LoanDate { get; set; }
+        public string LoanDateShort
+            => LoanDate.ToString("dd-MM-yyy");
+        private DateTime? ExpectedReturnBook { get; set; }
+        public string? ExpectedReturnBookDateShort
+            => ExpectedReturnBook?.ToString("dd-MM-yyy");
+        private DateTime? ReturnDate { get; set; }
+        public string? ReturnDateShort
+            => ReturnDate?.ToString("dd-MM-yyy");
 
         public static LoanViewModel FromEntity(Loan loan)
         {
