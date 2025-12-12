@@ -33,6 +33,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetLoanByIdQuery(id));
