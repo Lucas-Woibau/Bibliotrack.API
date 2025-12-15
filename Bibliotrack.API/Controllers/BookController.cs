@@ -22,7 +22,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> Get()
         {
             var query = new GetAllBooksQuery();
@@ -33,7 +33,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetBookByIdQuery(id));
@@ -45,7 +45,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add(AddBookCommand command)
         {
             var result = await _mediator.Send(command);
@@ -57,7 +57,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(UpdateBookCommand command)
         {
             var result = await _mediator.Send(command);
@@ -69,7 +69,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _mediator.Send(new DeleteBookCommand(id));

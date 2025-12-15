@@ -1,15 +1,19 @@
-﻿namespace Bibliotrack.Domain.Entities
+﻿using Bibliotrack.Domain.Enums;
+
+namespace Bibliotrack.Domain.Entities
 {
     public class Loan : BaseEntity
     {
         protected Loan() { }
-        public Loan(int idBook, Book book, string personName, DateTime loanDate, DateTime? expectedReturnBook)
+        public Loan(int idBook, Book book, string personName, DateTime loanDate, DateTime? expectedReturnBook, LoanStatus status)
         {
             IdBook = idBook;
             Book = book;
             PersonName = personName;
             ExpectedReturnBook = expectedReturnBook;
             LoanDate = loanDate;
+
+            status = LoanStatus.Emprestado;
         }
         public int IdBook { get; set; }
         public Book Book { get; private set; }
@@ -17,6 +21,7 @@
         public DateTime LoanDate { get; private set; }
         public DateTime? ExpectedReturnBook { get; private set; }
         public DateTime? ReturnDate { get; private set; }
+        public LoanStatus Status { get; private set; }
 
         public bool IsReturned => ReturnDate.HasValue;
 
@@ -26,6 +31,7 @@
                 return false;
 
             LoanDate = DateTime.Now;
+            Status = LoanStatus.Emprestado;
 
             Book.DecreaseQuantity();
             Book.UpdateStatusBasedOnQuantity();
@@ -39,20 +45,21 @@
                 return false;
 
             ReturnDate = DateTime.Now;
-
+            Status = LoanStatus.Devolvido;
             Book.IncreaseQuantity();
             Book.UpdateStatusBasedOnQuantity();
 
             return true;
         }
 
-        public void Update(int idBook, Book book, string personName, DateTime loanDate, DateTime? returnDate)
+        public void Update(int idBook, Book book, string personName, DateTime loanDate, DateTime? returnDate, LoanStatus status)
         {
             IdBook = idBook;
             Book = book;
             PersonName = personName;
             LoanDate = loanDate;
             ReturnDate = returnDate;
+            Status = status;
         }
     }
 }

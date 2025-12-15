@@ -9,9 +9,13 @@ namespace Bibliotrack.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Loan> builder)
         {
             builder.HasKey(x => x.Id);
+
             builder.HasOne(e => e.Book)
                     .WithMany()
                     .HasForeignKey(e => e.IdBook);
+
+            builder.Property(e => e.Status)
+                .HasConversion<string>();
         }
     }
 }

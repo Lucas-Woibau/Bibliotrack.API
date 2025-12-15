@@ -12,7 +12,7 @@ namespace Bibliotrack.API.Controllers
 {
     [Route("api/loans")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class LoanController : ControllerBase
     {
         public IMediator _mediator;
@@ -23,7 +23,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> Get()
         {
             var query = new GetAllLoansQuery();
@@ -33,7 +33,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetLoanByIdQuery(id));
