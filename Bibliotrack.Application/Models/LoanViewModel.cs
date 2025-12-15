@@ -1,10 +1,11 @@
 ﻿using Bibliotrack.Domain.Entities;
+using Bibliotrack.Domain.Enums;
 
 namespace Bibliotrack.Application.Models
 {
     public class LoanViewModel
     {
-        public LoanViewModel(int id, string bookTitle, string personName, DateTime loanDate, DateTime? expectedReturnBook, DateTime? returnDate)
+        public LoanViewModel(int id, string bookTitle, string personName, DateTime loanDate, DateTime? expectedReturnBook, DateTime? returnDate, LoanStatus status)
         {
             Id = id;
             BookTitle = bookTitle;
@@ -12,6 +13,7 @@ namespace Bibliotrack.Application.Models
             LoanDate = loanDate;
             ExpectedReturnBook = expectedReturnBook;
             ReturnDate = returnDate;
+            Status = status;
         }
         public int Id { get; set; }
         public string BookTitle { get;  set; }
@@ -25,11 +27,12 @@ namespace Bibliotrack.Application.Models
         private DateTime? ReturnDate { get; set; }
         public string? ReturnDateShort
             => ReturnDate?.ToString("dd-MM-yyy");
+        public LoanStatus Status { get; set; }
 
         public static LoanViewModel FromEntity(Loan loan)
         {
             var bookTitle = loan.Book?.Title ?? "There is no title.";
-            return new(loan.Id,bookTitle, loan.PersonName, loan.LoanDate, loan.ExpectedReturnBook, loan.ReturnDate);
+            return new(loan.Id,bookTitle, loan.PersonName, loan.LoanDate, loan.ExpectedReturnBook, loan.ReturnDate, loan.Status);
         }
     }
 }

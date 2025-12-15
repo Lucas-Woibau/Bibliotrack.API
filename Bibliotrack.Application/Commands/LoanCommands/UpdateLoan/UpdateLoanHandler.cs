@@ -26,7 +26,7 @@ namespace Bibliotrack.Application.Commands.LoanCommands.UpdateLoan
             if (book == null)
                 return ResultViewModel.Error("Book not found.");
 
-            loan.Update(request.IdBook, book, request.PersonName, request.LoanDate, request.ExpectedReturnDate);
+            loan.Update(request.IdBook, book, request.PersonName, request.LoanDate, request.ExpectedReturnDate, request.Status);
             await _loanRepository.Update(loan);
 
             return ResultViewModel.Success();

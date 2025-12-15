@@ -1,4 +1,5 @@
 ﻿using Bibliotrack.Application.Models;
+using Bibliotrack.Domain.Enums;
 using MediatR;
 
 namespace Bibliotrack.Application.Commands.LoanCommands.UpdateLoan
@@ -10,5 +11,6 @@ namespace Bibliotrack.Application.Commands.LoanCommands.UpdateLoan
         public string PersonName { get; set; }
         public DateTime LoanDate { get; set; }
         public DateTime? ExpectedReturnDate { get; set; }
+        public LoanStatus Status { get; set; }
     }
 }
