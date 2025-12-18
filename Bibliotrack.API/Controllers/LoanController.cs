@@ -24,9 +24,9 @@ namespace Bibliotrack.API.Controllers
 
         [HttpGet]
         //[AllowAnonymous]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string? search)
         {
-            var query = new GetAllLoansQuery();
+            var query = new GetAllLoansQuery(search);
             var result = await _mediator.Send(query);
 
             return Ok(result);
