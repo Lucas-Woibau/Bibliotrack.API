@@ -14,11 +14,13 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<Loan>> GetAll()
+        public async Task<List<Loan>> GetAll(string? search)
         {
             var loans = await _context.Loans
                 .Include(l => l.Book)
                 .Where(b => !b.IsDeleted)
+                .Where(b => string.IsNullOrEmpty(search) ||
+                 b.Book.Title.Contains(search) || b.PersonName.Contains(search))
                 .ToListAsync();
 
             return loans;
