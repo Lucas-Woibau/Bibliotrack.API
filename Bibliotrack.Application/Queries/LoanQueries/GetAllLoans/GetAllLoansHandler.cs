@@ -15,7 +15,7 @@ namespace Bibliotrack.Application.Queries.LoanQueries.GetAllLoans
 
         public async Task<ResultViewModel<List<LoanItemViewModel>>> Handle(GetAllLoansQuery request, CancellationToken cancellationToken)
         {
-            var loans = await _loanRepository.GetAll();
+            var loans = await _loanRepository.GetAll(request.Search);
 
             var model = loans.Select(LoanItemViewModel.FromEntity).ToList();
 

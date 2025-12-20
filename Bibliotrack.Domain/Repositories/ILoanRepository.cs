@@ -4,7 +4,7 @@ namespace Bibliotrack.Domain.Repositories
 {
     public interface ILoanRepository
     {
-        Task<List<Loan>> GetAll();
+        Task<List<Loan>> GetAll(string? search);
         Task<Loan?> GetById(int id);
         Task<int> Add(Loan loan);
         Task Update(Loan loan);
