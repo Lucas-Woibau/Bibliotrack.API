@@ -56,10 +56,13 @@ namespace Bibliotrack.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, result);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(UpdateBookCommand command)
+        public async Task<IActionResult> Update(int id, UpdateBookCommand command)
         {
+            if(id != command.IdBook)
+                return BadRequest("Id book not found!");
+
             var result = await _mediator.Send(command);
 
             if (!result.IsSuccess)
