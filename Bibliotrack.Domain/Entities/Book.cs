@@ -69,6 +69,8 @@ namespace Bibliotrack.Domain.Entities
             Quantity = quantity;
             RegistrationDate = registrationDate;
             Catalog = catalog;
+
+            UpdateStatusBasedOnQuantity();
         }
     }
 }
