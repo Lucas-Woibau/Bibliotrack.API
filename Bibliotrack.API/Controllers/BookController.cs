@@ -22,7 +22,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> Get()
         {
             var query = new GetAllBooksQuery();
@@ -33,7 +33,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet("{id}")]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetBookByIdQuery(id));
@@ -56,10 +56,13 @@ namespace Bibliotrack.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, result);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(UpdateBookCommand command)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateBookCommand command)
         {
+            if (id != command.IdBook)
+                return BadRequest("Id not found");
+
             var result = await _mediator.Send(command);
 
             if (!result.IsSuccess)
@@ -67,6 +70,7 @@ namespace Bibliotrack.API.Controllers
 
             return Ok(result);
         }
+
 
         [HttpDelete("{id}")]
         //[Authorize(Roles = "Admin")]
