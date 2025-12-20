@@ -4,7 +4,7 @@ namespace Bibliotrack.Domain.Repositories
 {
     public interface IBookRepository
     {
-        Task<List<Book>> GetAll();
+        Task<List<Book>> GetAll(string? search);
         Task<Book?> GetById(int id);
         Task<int> Add(Book book);
         Task Update(Book book);

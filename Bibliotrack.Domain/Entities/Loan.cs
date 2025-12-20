@@ -5,7 +5,7 @@ namespace Bibliotrack.Domain.Entities
     public class Loan : BaseEntity
     {
         protected Loan() { }
-        public Loan(int idBook, Book book, string personName, DateTime loanDate, DateTime? expectedReturnBook, LoanStatus status)
+        public Loan(int idBook, Book book, string personName, DateTime loanDate, DateTime? expectedReturnBook)
         {
             IdBook = idBook;
             Book = book;
@@ -13,7 +13,7 @@ namespace Bibliotrack.Domain.Entities
             ExpectedReturnBook = expectedReturnBook;
             LoanDate = loanDate;
 
-            status = LoanStatus.Emprestado;
+            Status = LoanStatus.Emprestado;
         }
         public int IdBook { get; set; }
         public Book Book { get; private set; }
@@ -22,8 +22,6 @@ namespace Bibliotrack.Domain.Entities
         public DateTime? ExpectedReturnBook { get; private set; }
         public DateTime? ReturnDate { get; private set; }
         public LoanStatus Status { get; private set; }
-
-        public bool IsReturned => ReturnDate.HasValue;
 
         public bool Lend()
         {
@@ -41,7 +39,7 @@ namespace Bibliotrack.Domain.Entities
 
         public bool ReturnLoan()
         {
-            if (IsReturned)
+            if (Status == LoanStatus.Devolvido)
                 return false;
 
             ReturnDate = DateTime.Now;

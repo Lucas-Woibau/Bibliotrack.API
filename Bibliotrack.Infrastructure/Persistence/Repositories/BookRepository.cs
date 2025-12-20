@@ -13,10 +13,13 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<Book>> GetAll()
+        public async Task<List<Book>> GetAll(string? search)
         {
             var books = await _context.Books
+                .AsNoTracking()
                 .Where(b => !b.IsDeleted)
+                .Where(b => string.IsNullOrEmpty(search) ||
+                 b.Title.Contains(search))
                 .ToListAsync();
 
             return books;

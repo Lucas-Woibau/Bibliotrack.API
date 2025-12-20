@@ -15,7 +15,7 @@ namespace Bibliotrack.Application.Queries.Book.GetAllBooks
 
         public async Task<ResultViewModel<List<BookItemViewModel>>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
         {
-            var books = await _bookRepository.GetAll();
+            var books = await _bookRepository.GetAll(request.Search);
 
             var model = books.Select(BookItemViewModel.FromEntity).ToList();
 
