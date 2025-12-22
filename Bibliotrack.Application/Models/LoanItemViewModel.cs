@@ -14,8 +14,8 @@ namespace Bibliotrack.Application.Models
             Status = status;
         }
         public int Id { get; set; }
-        public string BookTitle { get;  set; }
-        public string PersonName { get;  set; }
+        public string BookTitle { get; set; }
+        public string PersonName { get; set; }
         private DateTime? LoanDate { get; set; }
         public string? LoanDateShort
             => LoanDate?.ToString("dd-MM-yyyy");
