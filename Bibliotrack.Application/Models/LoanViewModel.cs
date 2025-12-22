@@ -16,8 +16,8 @@ namespace Bibliotrack.Application.Models
             Status = status;
         }
         public int Id { get; set; }
-        public string BookTitle { get;  set; }
-        public string PersonName { get;  set; }
+        public string BookTitle { get; set; }
+        public string PersonName { get; set; }
         private DateTime LoanDate { get; set; }
         public string LoanDateShort
             => LoanDate.ToString("dd-MM-yyy");
@@ -32,7 +32,7 @@ namespace Bibliotrack.Application.Models
         public static LoanViewModel FromEntity(Loan loan)
         {
             var bookTitle = loan.Book?.Title ?? "There is no title.";
-            return new(loan.Id,bookTitle, loan.PersonName, loan.LoanDate, loan.ExpectedReturnBook, loan.ReturnDate, loan.Status);
+            return new(loan.Id, bookTitle, loan.PersonName, loan.LoanDate, loan.ExpectedReturnBook, loan.ReturnDate, loan.Status);
         }
     }
 }

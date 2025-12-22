@@ -7,6 +7,7 @@ namespace Bibliotrack.Application.Models
     {
         public BookViewModel(int id, string title, string? author, string? description, int quantity, DateTime? registrationDate, string? catalog, BookStatus status)
         {
+            Id = id;
             Title = title;
             Author = author;
             Description = description;
