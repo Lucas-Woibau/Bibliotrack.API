@@ -22,11 +22,22 @@ namespace Bibliotrack.Application.Commands.LoanCommands.UpdateLoan
             if (loan == null)
                 return ResultViewModel.Error("Loan not found.");
 
-            var book = await _bookRepository.GetById(request.IdBook);
-            if (book == null)
+            var newBook = await _bookRepository.GetById(request.IdBook);
+            if (newBook == null)
                 return ResultViewModel.Error("Book not found.");
 
-            loan.Update(request.IdBook, book, request.PersonName, request.LoanDate, request.ExpectedReturnDate, request.Status);
+            if(loan.IdBook != request.IdBook)
+            {
+                loan.Book.IncreaseQuantity();
+
+                if (newBook.Quantity <= 0)
+                    return ResultViewModel.Error("Book out of stock");
+
+                newBook.DecreaseQuantity();
+                await _bookRepository.Update(newBook);
+            }
+
+            loan.Update(request.IdBook, newBook, request.PersonName, request.LoanDateShort, request.ExpectedReturnBook, request.ReturnDate);
             await _loanRepository.Update(loan);
 
             return ResultViewModel.Success();

@@ -55,9 +55,11 @@ namespace Bibliotrack.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateLoanCommand command)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateLoanCommand command)
         {
+            command.SetIdLoan(id);
+
             var result = await _mediator.Send(command);
 
             if (!result.IsSuccess)

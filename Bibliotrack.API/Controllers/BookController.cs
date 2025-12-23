@@ -4,7 +4,6 @@ using Bibliotrack.Application.Commands.BookCommands.UpdateBook;
 using Bibliotrack.Application.Queries.Book.GetAllBooks;
 using Bibliotrack.Application.Queries.Book.GetBooksById;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bibliotrack.API.Controllers

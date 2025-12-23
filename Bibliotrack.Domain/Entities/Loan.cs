@@ -50,14 +50,14 @@ namespace Bibliotrack.Domain.Entities
             return true;
         }
 
-        public void Update(int idBook, Book book, string personName, DateTime loanDate, DateTime? returnDate, LoanStatus status)
+        public void Update(int idBook, Book book, string personName, DateTime loanDate, DateTime? expectedReturnBook, DateTime? returnDate)
         {
             IdBook = idBook;
             Book = book;
             PersonName = personName;
             LoanDate = loanDate;
+            ExpectedReturnBook = expectedReturnBook;
             ReturnDate = returnDate;
-            Status = status;
         }
     }
 }

@@ -28,9 +28,6 @@ namespace Bibliotrack.Application.Commands.LoanCommands.ReturnLoanBook
 
             loan.Book.UpdateStatusBasedOnQuantity();
 
-            await _loanRepository.Update(loan);
-            await _bookRepository.Update(loan.Book);
-
             return ResultViewModel.Success();
         }
     }

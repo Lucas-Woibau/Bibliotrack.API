@@ -5,9 +5,10 @@ namespace Bibliotrack.Application.Models
 {
     public class LoanViewModel
     {
-        public LoanViewModel(int id, string bookTitle, string personName, DateTime loanDate, DateTime? expectedReturnBook, DateTime? returnDate, LoanStatus status)
+        public LoanViewModel(int id, int idBook, string bookTitle, string personName, DateTime loanDate, DateTime? expectedReturnBook, DateTime? returnDate, LoanStatus status)
         {
             Id = id;
+            IdBook = idBook;
             BookTitle = bookTitle;
             PersonName = personName;
             LoanDate = loanDate;
@@ -16,6 +17,7 @@ namespace Bibliotrack.Application.Models
             Status = status;
         }
         public int Id { get; set; }
+        public int IdBook { get; private set; }
         public string BookTitle { get; set; }
         public string PersonName { get; set; }
         private DateTime LoanDate { get; set; }
@@ -32,7 +34,7 @@ namespace Bibliotrack.Application.Models
         public static LoanViewModel FromEntity(Loan loan)
         {
             var bookTitle = loan.Book?.Title ?? "There is no title.";
-            return new(loan.Id, bookTitle, loan.PersonName, loan.LoanDate, loan.ExpectedReturnBook, loan.ReturnDate, loan.Status);
+            return new(loan.Id, loan.IdBook, bookTitle, loan.PersonName, loan.LoanDate, loan.ExpectedReturnBook, loan.ReturnDate, loan.Status);
         }
     }
 }
