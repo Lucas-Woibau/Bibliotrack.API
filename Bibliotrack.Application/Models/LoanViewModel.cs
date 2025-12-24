@@ -22,13 +22,13 @@ namespace Bibliotrack.Application.Models
         public string PersonName { get; set; }
         private DateTime LoanDate { get; set; }
         public string LoanDateShort
-            => LoanDate.ToString("dd-MM-yyy");
+            => LoanDate.ToString("dd-MM-yyyy");
         private DateTime? ExpectedReturnBook { get; set; }
         public string? ExpectedReturnBookDateShort
-            => ExpectedReturnBook?.ToString("dd-MM-yyy");
+            => ExpectedReturnBook?.ToString("dd-MM-yyyy");
         private DateTime? ReturnDate { get; set; }
         public string? ReturnDateShort
-            => ReturnDate?.ToString("dd-MM-yyy");
+            => ReturnDate?.ToString("dd-MM-yyyy");
         public LoanStatus Status { get; set; }
 
         public static LoanViewModel FromEntity(Loan loan)
