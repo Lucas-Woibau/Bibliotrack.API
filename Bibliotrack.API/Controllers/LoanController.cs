@@ -5,7 +5,6 @@ using Bibliotrack.Application.Commands.LoanCommands.UpdateLoan;
 using Bibliotrack.Application.Queries.LoanQueries.GetAllLoans;
 using Bibliotrack.Application.Queries.LoanQueries.GetLoanById;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bibliotrack.API.Controllers

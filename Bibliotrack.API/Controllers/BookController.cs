@@ -3,6 +3,7 @@ using Bibliotrack.Application.Commands.BookCommands.DeleteBook;
 using Bibliotrack.Application.Commands.BookCommands.UpdateBook;
 using Bibliotrack.Application.Queries.Book.GetAllBooks;
 using Bibliotrack.Application.Queries.Book.GetBooksById;
+using Bibliotrack.Application.Queries.BookQueries.GetBooksToLoan;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +37,18 @@ namespace Bibliotrack.API.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetBookByIdQuery(id));
+
+            if (!result.IsSuccess)
+                return BadRequest(result.Message);
+
+            return Ok(result);
+        }
+
+        [HttpGet("books-to-loan")]
+        //[AllowAnonymous]
+        public async Task<IActionResult> GetBooksToLoan(string? search)
+        {
+            var result = await _mediator.Send(new GetBooksToLoanQuery(search));
 
             if (!result.IsSuccess)
                 return BadRequest(result.Message);
