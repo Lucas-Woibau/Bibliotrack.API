@@ -1,4 +1,5 @@
 ﻿using Bibliotrack.Domain.Entities;
+using Bibliotrack.Domain.Enums;
 using Bibliotrack.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,6 +59,19 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
             book.SetAsDeleted();
             _context.Update(book);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Book>> GetBooksToLoan(string? search)
+        {
+            var books = await _context.Books
+                .AsNoTracking()
+                .Where(b => !b.IsDeleted &&
+                 b.Status == BookStatus.Disponível)
+                .Where(b => string.IsNullOrEmpty(search) ||
+                 b.Title.Contains(search))
+                .ToListAsync();
+
+            return books;
         }
     }
 }
