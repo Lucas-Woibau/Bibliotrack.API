@@ -64,7 +64,6 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
         public async Task<List<Book>> GetBooksToLoan(string? search)
         {
             var books = await _context.Books
-                .AsNoTracking()
                 .Where(b => !b.IsDeleted &&
                  b.Status == BookStatus.Disponível)
                 .Where(b => string.IsNullOrEmpty(search) ||

@@ -26,7 +26,7 @@ namespace Bibliotrack.Domain.Entities
         public string? Catalog { get; private set; }
         public BookStatus Status { get; private set; }
 
-        public bool VerifyIfHaslQuantity()
+        public bool VerifyIfHasQuantity()
         {
             if (Quantity > 0)
                 return true;
@@ -36,7 +36,7 @@ namespace Bibliotrack.Domain.Entities
 
         public void UpdateStatusBasedOnQuantity()
         {
-            if (VerifyIfHaslQuantity())
+            if (VerifyIfHasQuantity())
             {
                 Status = BookStatus.Disponível;
             }
@@ -49,6 +49,7 @@ namespace Bibliotrack.Domain.Entities
         public void IncreaseQuantity()
         {
             Quantity++;
+            UpdateStatusBasedOnQuantity();
         }
 
         public bool DecreaseQuantity()
@@ -57,6 +58,7 @@ namespace Bibliotrack.Domain.Entities
                 return false;
 
             Quantity--;
+            UpdateStatusBasedOnQuantity();
             return true;
         }
 
