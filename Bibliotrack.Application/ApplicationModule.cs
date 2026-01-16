@@ -1,6 +1,7 @@
 ﻿using Bibliotrack.Application.Commands.BookCommands.AddBook;
-using Bibliotrack.Application.Models;
-using MediatR;
+using Bibliotrack.Application.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bibliotrack.Application
@@ -10,6 +11,7 @@ namespace Bibliotrack.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services
+                .AddValidation()
                 .AddHandlers();
 
             return services;
@@ -19,6 +21,15 @@ namespace Bibliotrack.Application
         {
             services
                 .AddMediatR(config => config.RegisterServicesFromAssemblyContaining<AddBookCommand>());
+
+            return services;
+        }
+
+        private static IServiceCollection AddValidation(this IServiceCollection services)
+        {
+            services
+                .AddFluentValidationAutoValidation()
+                .AddValidatorsFromAssemblyContaining<AddLoanValidator>();
 
             return services;
         }
