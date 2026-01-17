@@ -27,7 +27,7 @@ namespace Bibliotrack.Application.Commands.LoanCommands.AddLoan
             if (!book.DecreaseQuantity())
                 return ResultViewModel<int>.Error("There is no quantity available");
 
-            book.UpdateStatusBasedOnQuantity();
+            loan.Lend();
             await _loanRepository.Add(loan);
             await _bookRepository.Update(book);
 

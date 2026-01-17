@@ -26,7 +26,7 @@ namespace Bibliotrack.Application.Commands.LoanCommands.ReturnLoanBook
             if (!returned)
                 return ResultViewModel.Error("Loan already returned.");
 
-            loan.Book.UpdateStatusBasedOnQuantity();
+            await _loanRepository.Update(loan);
 
             return ResultViewModel.Success();
         }

@@ -37,7 +37,7 @@ namespace Bibliotrack.Application.Commands.LoanCommands.UpdateLoan
                 await _bookRepository.Update(newBook);
             }
 
-            loan.Update(request.IdBook, newBook, request.PersonName, request.LoanDate, request.ExpectedReturnBook, request.ReturnDate);
+            loan.Update(request.IdBook, newBook, request.PersonName, request.LoanDate, request.ExpectedReturnBook);
             await _loanRepository.Update(loan);
 
             return ResultViewModel.Success();
