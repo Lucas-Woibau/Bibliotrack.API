@@ -21,7 +21,11 @@ namespace Bibliotrack.Application.Validators
             RuleFor(l => l.ReturnDate)
                 .Must((loan, returnDate) => returnDate >= loan.LoanDate)
                     .When(l => l.ReturnDate.HasValue)
-                        .WithMessage("A data de retorno não pode ser antes da data de empréstimo");           
+                        .WithMessage("A data de retorno não pode ser antes da data de empréstimo");
+
+            RuleFor(l => l.ReturnDate)
+                .Must(d => d <= DateTime.UtcNow || !d.HasValue)
+                    .WithMessage("A data de devolução não pode ser no futuro");
         }
     }
 }

@@ -39,24 +39,57 @@ namespace Bibliotrack.Domain.Entities
 
         public bool ReturnLoan()
         {
-            if (Status == LoanStatus.Devolvido)
+            if (IsReturned())
                 return false;
 
-            ReturnDate = DateTime.Now;
-            Status = LoanStatus.Devolvido;
-            Book.IncreaseQuantity();
-            Book.UpdateStatusBasedOnQuantity();
-
+            MarkAsReturned(DateTime.Now);
             return true;
         }
 
-        public void Update(int idBook, Book book, string personName, DateTime loanDate, DateTime? expectedReturnBook)
+        public bool IsReturned()
+        {
+            return ReturnDate.HasValue;
+        }
+
+        private void MarkAsReturned(DateTime returnDate)
+        {
+            ReturnDate = returnDate;
+            Status = LoanStatus.Devolvido;
+
+            Book.IncreaseQuantity();
+            Book.UpdateStatusBasedOnQuantity();
+        }
+
+
+        public void Update(int idBook, Book book, string personName, DateTime loanDate, DateTime? expectedReturnBook, DateTime? returnDate)
         {
             IdBook = idBook;
             Book = book;
             PersonName = personName;
             LoanDate = loanDate;
             ExpectedReturnBook = expectedReturnBook;
+
+            if (returnDate.HasValue)
+            {
+                if (!IsReturned())
+                {
+                    MarkAsReturned(returnDate.Value);
+                }
+                else
+                {
+                    ReturnDate = returnDate;
+                    Status = LoanStatus.Devolvido;
+                }
+            }
+
+            if (!returnDate.HasValue && IsReturned())
+            {
+                ReturnDate = null;
+                Status = LoanStatus.Emprestado;
+
+                Book.DecreaseQuantity();
+                Book.UpdateStatusBasedOnQuantity();
+            }
         }
     }
 }
