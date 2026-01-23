@@ -1,5 +1,6 @@
 ﻿using Bibliotrack.Application.Models;
 using Bibliotrack.Domain.Entities;
+using Bibliotrack.Domain.Enums;
 using Bibliotrack.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -68,6 +69,13 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
 
             _context.Update(loan);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsActiveLoanForBook(int bookId)
+        {
+            return await _context.Loans
+                .AnyAsync(l => l.IdBook == bookId &&
+                               l.Status == LoanStatus.Emprestado);
         }
     }
 }

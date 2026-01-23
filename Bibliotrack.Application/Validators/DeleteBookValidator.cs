@@ -9,13 +9,10 @@ namespace Bibliotrack.Application.Validators
     {
         public DeleteBookValidator(ILoanRepository loanRepository)
         {
-            RuleFor(l => l.Id)
-                .MustAsync(async (id, cancellation) =>
-                {
-                    var loan = await loanRepository.GetById(id);
-                    return loan.Status == LoanStatus.Emprestado;
-                })
-                .WithMessage("Empréstimos já devolvidos não pode ser deletado.");
+            RuleFor(x => x.Id)
+                .MustAsync(async (bookId, ct) =>
+                    !await loanRepository.ExistsActiveLoanForBook(bookId))
+                .WithMessage("Você não pode deletar um livro que possui empréstimos ativos.");
         }
     }
 }

@@ -8,12 +8,12 @@ namespace Bibliotrack.Application.Validators
         public AddBookValidator()
         {
             RuleFor(b => b.Quantity)
-                .Must(q => q > 0)
-                    .WithMessage("A quantidade deve ser maior que 0.");
+                .GreaterThan(0)
+                .WithMessage("A quantidade deve ser maior que 0.");
 
             RuleFor(b => b.RegistrationDate)
-                .Must(q => q <= DateTime.UtcNow)
-                    .WithMessage("A data de registro não pode ser no futuro.");
+                .LessThanOrEqualTo(DateTime.UtcNow)
+                .WithMessage("A data de registro não pode ser no futuro.");
         }
     }
 }
