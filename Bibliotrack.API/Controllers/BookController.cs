@@ -5,6 +5,7 @@ using Bibliotrack.Application.Queries.Book.GetAllBooks;
 using Bibliotrack.Application.Queries.Book.GetBooksById;
 using Bibliotrack.Application.Queries.BookQueries.GetBooksToLoan;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bibliotrack.API.Controllers
@@ -22,7 +23,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(string? search)
         {
             var query = new GetAllBooksQuery(search);
@@ -33,7 +34,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet("{id}")]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetBookByIdQuery(id));
@@ -45,7 +46,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet("books-to-loan")]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> GetBooksToLoan(string? search)
         {
             var result = await _mediator.Send(new GetBooksToLoanQuery(search));
@@ -57,7 +58,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add(AddBookCommand command)
         {
             var result = await _mediator.Send(command);
@@ -69,7 +70,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, UpdateBookCommand command)
         {
             if(id != command.IdBook)
@@ -84,7 +85,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _mediator.Send(new DeleteBookCommand(id));

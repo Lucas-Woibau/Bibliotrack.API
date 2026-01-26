@@ -1,9 +1,7 @@
-@Bibliotrack.API_HostAddress = https://localhost:7251/api
+@Bibliotrack.API_HostAddress = https://localhost:5000/api
 
-@JwtToken = 
 ###
 GET {{Bibliotrack.API_HostAddress}}/books
-Authorization: Bearer {{JwtToken}}
 Content-Type: application/json
 
 ###

@@ -5,13 +5,14 @@ using Bibliotrack.Application.Commands.LoanCommands.UpdateLoan;
 using Bibliotrack.Application.Queries.LoanQueries.GetAllLoans;
 using Bibliotrack.Application.Queries.LoanQueries.GetLoanById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bibliotrack.API.Controllers
 {
     [Route("api/loans")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class LoanController : ControllerBase
     {
         public IMediator _mediator;
@@ -22,7 +23,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(string? search)
         {
             var query = new GetAllLoansQuery(search);
@@ -32,7 +33,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpGet("{id}")]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetLoanByIdQuery(id));
@@ -44,6 +45,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add(AddLoanCommand command)
         {
             var result = await _mediator.Send(command);
@@ -55,6 +57,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, UpdateLoanCommand command)
         {
             command.SetIdLoan(id);
@@ -68,6 +71,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _mediator.Send(new DeleteLoanCommand(id));
@@ -79,6 +83,7 @@ namespace Bibliotrack.API.Controllers
         }
 
         [HttpPut("{id}/return")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ReturnBook(int id)
         {
             var result = await _mediator.Send(new ReturnLoanBookCommand(id));
