@@ -10,6 +10,8 @@
 *.userosscache
 *.sln.docstates
 
+.env
+
 # AppSettings por ambiente (NUNCA versionar)
 **/appsettings.Development.json
 **/appsettings.Production.json

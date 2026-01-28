@@ -1,0 +1,24 @@
+services:
+  bibliotrack-db:
+    container_name: bibliotrack-db
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    ports:
+      - 8002:1433
+    environment: 
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+      
+  bibliotrack.api:
+    container_name: bibliotrack-api
+    image: ${DOCKER_REGISTRY-}bibliotrackapi
+    build:
+      context: .
+      dockerfile: Bibliotrack.API/Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - bibliotrack-db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__BibliotrackCS=Server=bibliotrack-db,1433;Database=${DB_NAME};User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;
