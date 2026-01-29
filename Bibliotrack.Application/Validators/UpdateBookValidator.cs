@@ -8,8 +8,8 @@ namespace Bibliotrack.Application.Validators
         public UpdateBookValidator()
         {
             RuleFor(b => b.RegistrationDate)
-                .Must(q => q <= DateTime.UtcNow)
-                    .WithMessage("A data de registro não pode ser no futuro.");
+                .LessThanOrEqualTo(DateTime.UtcNow)
+                .WithMessage("A data de registro não pode ser no futuro.");
         }
     }
 }

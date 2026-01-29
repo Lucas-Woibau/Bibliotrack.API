@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.2.11415.280 d18.0
+VisualStudioVersion = 18.2.11415.280
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bibliotrack.API", "Bibliotrack.API\Bibliotrack.API.csproj", "{4581CB14-3904-487A-A736-FBE4AAB59985}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bibliotrack.Infrastructure", "Bibliotrack.Infrastructure\Bibliotrack.Infrastructure.csproj", "{AC1D2C88-30FC-4165-AF4B-9132A6978118}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bibliotrack.Application", "Bibliotrack.Application\Bibliotrack.Application.csproj", "{77982DB5-1942-49E9-AFA7-54AA700D7C49}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4FFD9276-9910-4612-BB09-1E0F4B673459}"
 	ProjectSection(SolutionItems) = preProject
@@ -41,10 +39,6 @@ Global
 		{77982DB5-1942-49E9-AFA7-54AA700D7C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77982DB5-1942-49E9-AFA7-54AA700D7C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77982DB5-1942-49E9-AFA7-54AA700D7C49}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
