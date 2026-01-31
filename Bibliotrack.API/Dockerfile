@@ -13,7 +13,7 @@ COPY ["Bibliotrack.Application/Bibliotrack.Application.csproj", "Bibliotrack.App
 COPY ["Bibliotrack.Domain/Bibliotrack.Domain.csproj", "Bibliotrack.Domain/"]
 COPY ["Bibliotrack.Infrastructure/Bibliotrack.Infrastructure.csproj", "Bibliotrack.Infrastructure/"]
 
-RUN dotnet restore
+RUN dotnet restore "Bibliotrack.API/Bibliotrack.API.csproj"
 
 COPY . .
 
