@@ -25,6 +25,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: Bibliotrack.API/Dockerfile
           push: true
           tags: ghcr.io/lucas-woibau/bibliotrack-api:latest
 
