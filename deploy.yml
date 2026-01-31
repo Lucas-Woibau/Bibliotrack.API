@@ -12,7 +12,24 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Debug - show files that Docker will see
+        run: |
+          echo "REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA"
+          echo "---- repo root ----"
+          ls -la
+          echo "---- Bibliotrack.API ----"
+          ls -la Bibliotrack.API || true
+          echo "---- find csproj ----"
+          find . -maxdepth 5 -name "Bibliotrack.API.csproj" -print
+          echo "---- dockerignore ----"
+          if [ -f .dockerignore ]; then sed -n '1,200p' .dockerignore; else echo "no .dockerignore"; fi
+          echo "---- Dockerfile used ----"
+          sed -n '1,200p' Bibliotrack.API/Dockerfile
 
       - name: Login to GHCR
         uses: docker/login-action@v3
@@ -27,6 +44,7 @@ jobs:
           context: .
           file: Bibliotrack.API/Dockerfile
           push: true
+          no-cache: true
           tags: ghcr.io/lucas-woibau/bibliotrack-api:latest
 
       - name: Deploy on VPS (API)
