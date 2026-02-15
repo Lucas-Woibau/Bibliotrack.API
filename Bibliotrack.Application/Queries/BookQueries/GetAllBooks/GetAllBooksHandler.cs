@@ -1,11 +1,12 @@
 ﻿using Bibliotrack.Application.Models;
 using Bibliotrack.Application.Queries.BookQueries.GetBooksToLoan;
+using Bibliotrack.Domain.Common.Pagination;
 using Bibliotrack.Domain.Repositories;
 using MediatR;
 
 namespace Bibliotrack.Application.Queries.Book.GetAllBooks
 {
-    public class GetAllBooksHandler : IRequestHandler<GetBooksToLoanQuery, ResultViewModel<List<BookItemViewModel>>>
+    public class GetAllBooksHandler : IRequestHandler<GetAllBooksQuery, ResultViewModel<PagedResult<BookItemViewModel>>>
     {
         private readonly IBookRepository _bookRepository;
 
@@ -14,13 +15,20 @@ namespace Bibliotrack.Application.Queries.Book.GetAllBooks
             _bookRepository = bookRepository;
         }
 
-        public async Task<ResultViewModel<List<BookItemViewModel>>> Handle(GetBooksToLoanQuery request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<PagedResult<BookItemViewModel>>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
         {
-            var books = await _bookRepository.GetBooksToLoan(request.Search);
+            var pagedBooks = await _bookRepository.GetAll(request.Search, request.Page, request.Size);
 
-            var model = books.Select(BookItemViewModel.FromEntity).ToList();
+            var items = pagedBooks.Items.Select(BookItemViewModel.FromEntity).ToList();
 
-            return ResultViewModel<List<BookItemViewModel>>.Success(model);
+            var pagedVm = new PagedResult<BookItemViewModel>(
+                items,
+                pagedBooks.PageNumber,
+                pagedBooks.PageSize,
+                pagedBooks.TotalRecords
+            );
+
+            return ResultViewModel<PagedResult<BookItemViewModel>>.Success(pagedVm);
         }
     }
 }

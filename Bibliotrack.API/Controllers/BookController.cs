@@ -12,7 +12,7 @@ namespace Bibliotrack.API.Controllers
 {
     [Route("api/books")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BookController : ControllerBase
     {
         public IMediator _mediator;
@@ -24,9 +24,9 @@ namespace Bibliotrack.API.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Get(string? search)
+        public async Task<IActionResult> Get(string? search, int page, int size)
         {
-            var query = new GetAllBooksQuery(search);
+            var query = new GetAllBooksQuery(search, page, size);
 
             var result = await _mediator.Send(query);
 
@@ -73,7 +73,7 @@ namespace Bibliotrack.API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, UpdateBookCommand command)
         {
-            if(id != command.IdBook)
+            if (id != command.IdBook)
                 return BadRequest("Id book not found!");
 
             var result = await _mediator.Send(command);

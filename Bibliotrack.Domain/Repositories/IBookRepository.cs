@@ -1,10 +1,11 @@
-﻿using Bibliotrack.Domain.Entities;
+﻿using Bibliotrack.Domain.Common.Pagination;
+using Bibliotrack.Domain.Entities;
 
 namespace Bibliotrack.Domain.Repositories
 {
     public interface IBookRepository
     {
-        Task<List<Book>> GetAll(string? search);
+        Task<PagedResult<Book>> GetAll(string? search, int page, int size);
         Task<Book?> GetById(int id);
         Task<List<Book>> GetBooksToLoan(string? search);
         Task<int> Add(Book book);

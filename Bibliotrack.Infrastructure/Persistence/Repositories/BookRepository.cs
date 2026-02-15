@@ -1,4 +1,5 @@
-﻿using Bibliotrack.Domain.Entities;
+﻿using Bibliotrack.Domain.Common.Pagination;
+using Bibliotrack.Domain.Entities;
 using Bibliotrack.Domain.Enums;
 using Bibliotrack.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +15,29 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<Book>> GetAll(string? search)
+        public async Task<PagedResult<Book>> GetAll(string? search, int page = 1, int size = 25)
         {
-            var books = await _context.Books
+            if (page < 1) page = 1;
+            if (size < 1) size = 25;
+
+            var query = _context.Books
                 .AsNoTracking()
-                .Where(b => !b.IsDeleted)
-                .Where(b => string.IsNullOrEmpty(search) ||
-                 b.Title.Contains(search))
+                .Where(b => !b.IsDeleted);
+
+            if(!string.IsNullOrEmpty(search) )
+            {
+                query = query.Where(b => b.Title.Contains(search));
+            }
+
+            var totalRecords = await query.CountAsync();
+
+            var books = await query
+                .OrderBy(b => b.Id)
+                .Skip((page - 1) * size)
+                .Take(size)
                 .ToListAsync();
 
-            return books;
+            return new PagedResult<Book>(books, page, size, totalRecords);
         }
 
         public async Task<Book?> GetById(int id)

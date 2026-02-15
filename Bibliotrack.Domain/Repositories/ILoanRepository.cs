@@ -1,10 +1,11 @@
-﻿using Bibliotrack.Domain.Entities;
+﻿using Bibliotrack.Domain.Common.Pagination;
+using Bibliotrack.Domain.Entities;
 
 namespace Bibliotrack.Domain.Repositories
 {
     public interface ILoanRepository
     {
-        Task<List<Loan>> GetAll(string? search);
+        Task<PagedResult<Loan>> GetAll(string? search, int page, int size);
         Task<Loan?> GetById(int id);
         Task<bool> ExistsActiveLoanForBook(int bookId);
         Task<int> Add(Loan loan);
