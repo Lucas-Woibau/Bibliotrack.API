@@ -1,9 +1,10 @@
 ﻿using Bibliotrack.Application.Models;
+using Bibliotrack.Domain.Common.Pagination;
 using MediatR;
 
 namespace Bibliotrack.Application.Queries.LoanQueries.GetAllLoans
 {
-    public class GetAllLoansQuery : IRequest<ResultViewModel<List<LoanItemViewModel>>>
+    public class GetAllLoansQuery : IRequest<ResultViewModel<PagedResult<LoanItemViewModel>>>
     {
         public string Search { get; }
         public int Page { get; }

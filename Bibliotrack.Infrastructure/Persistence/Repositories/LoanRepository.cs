@@ -19,12 +19,14 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
         {
             var query = _context.Loans
                 .AsNoTracking()
+                .Include(b => b.Book)
                 .Where(b => !b.IsDeleted);
 
             if (!string.IsNullOrEmpty(search))
             {
-                query = query.Where(b => b.Book.Title.Contains(search)
-                || b.PersonName.Contains(search));
+                query = query.Where(b =>
+                    b.Book.Title.Contains(search) ||
+                    b.PersonName.Contains(search));
             }
 
             var totalRecords = await query.CountAsync();
@@ -74,7 +76,7 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
         public async Task ReturnBook(int id)
         {
             var loan = await GetById(id);
-            if (loan is null) 
+            if (loan is null)
                 return;
 
             _context.Update(loan);
