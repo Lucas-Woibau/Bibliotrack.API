@@ -5,13 +5,14 @@ namespace Bibliotrack.Domain.Entities
     public class Book : BaseEntity
     {
         protected Book() { }
-        public Book(string title, string? author, string? description, int quantity, DateTime? registrationDate, string? catalog)
+        public Book(string title, string? author, string? description, int quantity, int? registrationNumber, DateTime? registrationDate, string? catalog)
             : base()
         {
             Title = title;
             Author = author;
             Description = description;
             Quantity = quantity;
+            RegistrationNumber = registrationNumber;
             RegistrationDate = registrationDate;
             Catalog = catalog;
 
@@ -22,6 +23,7 @@ namespace Bibliotrack.Domain.Entities
         public string? Author { get; private set; }
         public string? Description { get; private set; }
         public int Quantity { get; private set; }
+        public int? RegistrationNumber { get; private set; }
         public DateTime? RegistrationDate { get; private set; }
         public string? Catalog { get; private set; }
         public BookStatus Status { get; private set; }
@@ -63,12 +65,13 @@ namespace Bibliotrack.Domain.Entities
         }
 
 
-        public void Update(string title, string? author, string? description, int quantity, DateTime? registrationDate, string? catalog)
+        public void Update(string title, string? author, string? description, int quantity, int? registrationNumber, DateTime? registrationDate, string? catalog)
         {
             Title = title;
             Author = author;
             Description = description;
             Quantity = quantity;
+            RegistrationNumber = registrationNumber;
             RegistrationDate = registrationDate;
             Catalog = catalog;
 

@@ -22,17 +22,18 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
 
             var query = _context.Books
                 .AsNoTracking()
+                .OrderByDescending(b => b.Id)
                 .Where(b => !b.IsDeleted);
 
-            if(!string.IsNullOrEmpty(search) )
+            if (!string.IsNullOrEmpty(search))
             {
-                query = query.Where(b => b.Title.Contains(search));
+                query = query.Where(b => b.Title.Contains(search)
+                                    || b.Author.Contains(search));
             }
 
             var totalRecords = await query.CountAsync();
 
             var books = await query
-                .OrderBy(b => b.Id)
                 .Skip((page - 1) * size)
                 .Take(size)
                 .ToListAsync();

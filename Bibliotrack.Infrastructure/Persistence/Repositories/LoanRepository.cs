@@ -20,6 +20,7 @@ namespace Bibliotrack.Infrastructure.Persistence.Repositories
             var query = _context.Loans
                 .AsNoTracking()
                 .Include(b => b.Book)
+                .OrderByDescending(l => l.Id)
                 .Where(b => !b.IsDeleted);
 
             if (!string.IsNullOrEmpty(search))

@@ -21,7 +21,7 @@ namespace Bibliotrack.Application.Commands.BookCommands.UpdateBook
                 return ResultViewModel.Error("Book not found.");
 
             book.Update(request.Title, request.Author, request.Description, 
-                request.Quantity, request.RegistrationDate,request.Catalog);
+                request.Quantity, request.RegistrationNumber, request.RegistrationDate,request.Catalog);
             await _bookRepository.Update(book);
 
             return ResultViewModel.Success();

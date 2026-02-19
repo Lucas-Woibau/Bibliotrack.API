@@ -5,6 +5,7 @@ using Bibliotrack.Infrastructure.Auth;
 using Bibliotrack.Infrastructure.Persistence;
 using Bibliotrack.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
