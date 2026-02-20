@@ -6,14 +6,14 @@ namespace Bibliotrack.Application.Models
     public class BookViewModel
     {
         public BookViewModel(int id, string title, string? author, string? description, 
-            int quantity, int? registrationNumber, DateTime? registrationDate, string? catalog, BookStatus status)
+            int quantity, string? registrationCode, DateTime? registrationDate, string? catalog, BookStatus status)
         {
             Id = id;
             Title = title;
             Author = author;
             Description = description;
             Quantity = quantity;
-            RegistrationNumber = registrationNumber;
+            RegistrationCode = registrationCode;
             RegistrationDate = registrationDate;
             Catalog = catalog;
             Status = status;
@@ -24,7 +24,7 @@ namespace Bibliotrack.Application.Models
         public string? Author { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
-        public int? RegistrationNumber { get; set; }
+        public string? RegistrationCode { get; set; }
         private DateTime? RegistrationDate { get; set; }
         public string? RegistrationDateShort
             => RegistrationDate?.ToString("dd-MM-yyy");
@@ -32,6 +32,6 @@ namespace Bibliotrack.Application.Models
         public BookStatus Status { get; set; }
 
         public static BookViewModel FromEntity(Book book)
-            => new(book.Id, book.Title, book.Author, book.Description, book.Quantity, book.RegistrationNumber, book.RegistrationDate, book.Catalog, book.Status);
+            => new(book.Id, book.Title, book.Author, book.Description, book.Quantity, book.RegistrationCode, book.RegistrationDate, book.Catalog, book.Status);
     }
 }

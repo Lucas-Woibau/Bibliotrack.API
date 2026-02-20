@@ -10,7 +10,7 @@ namespace Bibliotrack.Application.Commands.BookCommands.UpdateBook
         public string? Author { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
-        public int? RegistrationNumber { get; set; }
+        public string? RegistrationCode { get; set; }
         public DateTime? RegistrationDate { get; set; }
         public string? Catalog { get; set; }
     }
